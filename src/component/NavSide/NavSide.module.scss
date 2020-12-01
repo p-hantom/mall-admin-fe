@@ -1,0 +1,30 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background-color: red;
+    padding-top: 40px;
+    width: 260px;
+    background-color: #333;
+    color: #b5b5b5;
+}
+
+.item {
+    color: #b5b5b5;
+}
+
+.subItem {
+    color: #b5b5b5;
+    background-color: #111;
+}
+
+.item:hover, .subItem:hover {
+    color: burlywood;
+    text-decoration: none;
+}
+
+.fa {
+    padding-right: 15px;
+}
