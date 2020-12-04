@@ -7,6 +7,8 @@ class User {
     login(loginInfo) {
         const params = _util.getParams(loginInfo);
 
-        return axios.post('/api/manage/user/login.do', params);
+        return _util.request('/api/manage/user/login.do', params);
     }
 }
+
+export default User;

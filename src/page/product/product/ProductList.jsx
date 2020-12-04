@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Table from 'react-bootstrap/Table';
+import { NavLink } from 'react-router-dom'
+import Pagination from '../../../UI/pagination/Pagination'
 import styles from './ProductList.module.scss'
 
 import ProductService from '../../../service/ProductService'
@@ -10,6 +12,7 @@ class ProductList extends Component {
     state = {
         pageNum: 1,
         pageSize: 10,
+        total: 0,
         productList: []
     }
     componentDidMount() {
@@ -18,13 +21,40 @@ class ProductList extends Component {
     loadProductList = () => {
         const params = {
             pageNum: this.state.pageNum,
-            pageSize: this.state.pageSize
+            pageSize: this.state.pageSize,
         }
         _product.getProductList(params).then(res => {
-            console.log(res)
+            this.setState({
+                productList: res.data.data.list,
+                total: res.data.data.total
+            })
+        })
+    }
+    onPageNumChange = (pageNum) => {
+        this.setState({
+            pageNum: pageNum
+        }, () => {
+            this.loadProductList();
         })
     }
     render() {
+        const content = this.state.productList.map(item => {
+            return (
+                <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>
+                        <div>{item.name}</div>
+                        <div>{item.subtitle}</div>
+                    </td>
+                    <td>{item.price}</td>
+                    <td>{item.status==1 ? '在售' : '已下架'}</td>
+                    <td>
+                        <NavLink to={`/product/detail/${item.id}`}>More</NavLink> {'   '}
+                        <NavLink to={`/product/edit/${item.id}`}>Edit</NavLink>
+                    </td>
+                </tr>
+            )
+        })
         return (
             <React.Fragment>
                 <h1>Product Management</h1>
@@ -34,27 +64,19 @@ class ProductList extends Component {
                             <th>id</th>
                             <th>Information</th>
                             <th>Price</th>
-                            <th>State</th>
+                            <th>Status</th>
                             <th>Operations</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                        </tr>
+                        {content}
                     </tbody>
                 </Table>
+                <Pagination defaultCurrent={1}
+                    current={this.state.pageNum}
+                    defaultPageSize={10} 
+                    total={this.state.total}
+                    onChange={(pageNum) => this.onPageNumChange(pageNum)}/>
             </React.Fragment>
         )
     }

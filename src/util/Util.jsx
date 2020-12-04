@@ -56,6 +56,7 @@ class Util {
     }
     // generate params for application/x-www-form-urlencoded format
     getParams(paramsObj) {
+        if(paramsObj == null)   return null;
         const params = new URLSearchParams();
         Object.keys(paramsObj).map(key => {
             params.append(key, paramsObj[key]);

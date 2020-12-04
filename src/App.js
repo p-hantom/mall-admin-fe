@@ -8,6 +8,7 @@ import Layout from './component/Layout/Layout'
 import Home from './page/home/Home'
 import Login from './page/login/Login'
 import ProductRouter from './page/product/ProductRouter'
+import styles from './App.module.scss'
 
 class App extends Component {
   render() {
