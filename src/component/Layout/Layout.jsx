@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import NavHead from '../NavHead/NavHead'
 import NavSide from '../NavSide/NavSide'
 
 import styles from './Layout.module.scss'
 
-const layout = props => (
-    <div>
-        <NavHead />
-        <NavSide />
-        
-        <div className={styles.pageWrapper}>{props.children}</div>
-    </div>
-)
+class Layout extends Component {
 
-export default layout;
+    render() {
+        return (
+            <div>
+                <NavHead />
+                <NavSide selectedNav={this.props.selectedNav}/>
+                
+                <div className={styles.pageWrapper}>{this.props.children}</div>
+            </div>
+        )
+    }
+} 
+
+export default Layout;

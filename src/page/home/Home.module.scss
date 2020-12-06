@@ -1,0 +1,43 @@
+.homeTitle {
+    margin-bottom: 40px;
+}
+
+.cardDiv {
+    padding: 20px 10px;
+    height: 160px;
+    text-align: center;
+    transition: transform .2s;
+}
+.cardDiv:hover {
+    transform: scale(1.1);
+}
+
+.userDiv {
+    background-color: #f0ad4e;
+}
+
+.productDiv {
+    background-color: #5cb85c;
+}
+
+.orderDiv {
+    background-color: #4cb1cf;
+}
+
+.link {
+    color: white;
+}
+.link:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.count {
+    font-size: 50px;
+}
+.title {
+    font-size: 18px;
+}
+.fa {
+    padding-right: 10px;
+}

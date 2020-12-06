@@ -11,11 +11,21 @@ import ProductRouter from './page/product/ProductRouter'
 import styles from './App.module.scss'
 
 class App extends Component {
+  state = {
+    selectedNav: null
+  }
+  selectSideNav = (navName) => {
+    this.setState({
+      selectedNav: navName
+    })
+  }
   render() {
     let LayoutRouter = (
-      <Layout> 
+      <Layout selectedNav={this.state.selectedNav}> 
           <Switch>
-              <Route exact path="/" component={Home}/>
+              <Route exact path="/" render={props => (
+                  <Home selectSideNav={this.selectSideNav}/>
+                )}/>
               <Route path="/product" component={ProductRouter}/>
               {/* <Route path="/product-category" component={ProductRouter}/>
               <Route path="/order/index" component={OrderList}/>

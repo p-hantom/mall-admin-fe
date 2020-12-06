@@ -17,8 +17,13 @@ class FileUploader extends Component {
     }
     uploadHandler = () => {
         const data = new FormData();
-        data.append('file', this.state.file)
-        _product.uploadPic(data);
+        data.append('upload_file', this.state.file)
+        _product.uploadPic(data).then(res => {
+            console.log('upload success',res)
+        })
+        .catch(e => {
+            console.log('upload error',e)
+        });
     }
     render() {
         return (
