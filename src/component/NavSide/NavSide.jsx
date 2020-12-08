@@ -64,7 +64,7 @@ class NavSide extends React.Component {
     }
     // When selecting an item in nav, change its bg color
     selectHandler = (name) => {
-        console.log(name)
+        // console.log(name)
         this.setState({
             selected: name
         })

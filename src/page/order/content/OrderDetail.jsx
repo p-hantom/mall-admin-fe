@@ -30,7 +30,7 @@ class OrderDetail extends Component {
     }
     render() {
         console.log('detail')
-        // if(!this.state.data)    return null;
+        if(!this.state.data)    return null;
         const {orderNo, payment, statusDesc, 
             createTime, receiverName, paymentTypeDesc,
              orderItemVoList} = this.state.data

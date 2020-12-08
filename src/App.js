@@ -31,9 +31,8 @@ class App extends Component {
                 )}/>
               <Route path="/product" component={ProductRouter}/>
               <Route path="/user/index" component={UserList}/>
-              <Route path="/order/index" component={OrderRouter}/>
+              <Route path="/order" component={OrderRouter}/>
               <Redirect exact from="/user" to="/user/index"/>
-              <Redirect exact from="/order" to="/order/index"/>
               {/* <Route path="/product-category" component={ProductRouter}/>
               
               <Route path="/order/detail/:orderNumber" component={OrderDetail}/>
