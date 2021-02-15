@@ -10,8 +10,8 @@ const _user = new UserService();
 
 class Login extends Component {
     state = {
-        username: '',
-        password: '',
+        username: 'admin',
+        password: 'admin',
         showErrMsg: false
     }
     inputHandler = (key, e) => {

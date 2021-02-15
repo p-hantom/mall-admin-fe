@@ -20,7 +20,7 @@ class ProductList extends Component {
     }
     loadProductList = () => {
         const params = {
-            pageNum: this.state.pageNum,
+            pageNum: this.state.pageNum-1,
             pageSize: this.state.pageSize,
         }
         _product.getProductList(params).then(res => {

@@ -38,6 +38,22 @@ class EditProduct extends Component {
         console.log(e.target.value)
         this.setState({[key]: e.target.value})
     }
+    onSubmit = () => {
+        _product.saveProduct({
+            id:this.state.id,
+            name:this.state.name,
+            subtitle:this.state.subtitle,
+            categoryId:this.state.categoryId,
+            parentCategoryId:this.state.parentCategoryId,
+            subImages:this.state.subImages,
+            price:this.state.price,
+            stock:this.state.stock,
+            detail:this.state.detail,
+            status:this.state.status,
+        }).then(res => {
+            console.log(res)
+        })
+    }
     render() {
         return (
             <React.Fragment>
@@ -79,6 +95,7 @@ class EditProduct extends Component {
                 
                     <FileUploader />
                 </Form.Group>
+                <button onClick={this.onSubmit}>Submit</button>
             </React.Fragment>
         )
     }
