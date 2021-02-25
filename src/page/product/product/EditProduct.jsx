@@ -5,6 +5,8 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import FileUploader from '../../../UI/fileUploader/FileUploader'
 import ProductService from '../../../service/ProductService'
+import Button from 'react-bootstrap/Button'
+
 import styles from './EditProduct.module.scss'
 
 const _product = new ProductService();
@@ -17,10 +19,12 @@ class EditProduct extends Component {
         categoryId          : 0,
         parentCategoryId    : 0,
         subImages           : [],
+        mainImage           : '',
         price               : '',
         stock               : '',
         detail              : '',
-        status              : 1 //商品状态1为在售
+        status              : 1 ,//商品状态1为在售
+        imageHost           : ''
     }
     componentDidMount() {
         this.loadProductDetail();
@@ -34,8 +38,13 @@ class EditProduct extends Component {
             })
         }
     }
+    uploadHandler = (uri) => {
+        console.log(uri)
+        this.setState({
+            mainImage: uri
+        })
+    }
     changeValueHandler = (e, key) => {
-        console.log(e.target.value)
         this.setState({[key]: e.target.value})
     }
     onSubmit = () => {
@@ -46,13 +55,31 @@ class EditProduct extends Component {
             categoryId:this.state.categoryId,
             parentCategoryId:this.state.parentCategoryId,
             subImages:this.state.subImages,
+            mainImage:this.state.mainImage,
             price:this.state.price,
             stock:this.state.stock,
             detail:this.state.detail,
             status:this.state.status,
         }).then(res => {
-            console.log(res)
+            this.props.history.push('/product/index')
         })
+    }
+    onCancel = () => {
+        this.props.history.push('/product/index')
+    }
+    getImgDiv = () => {
+        const {mainImage, imageHost} = this.state;
+        if(!mainImage){
+            return (
+                <div>No Image.</div>
+            );
+        }   
+
+        return (
+            <div className={styles.imgCon}>
+                <img alt="" className={styles.img} src={imageHost+mainImage} />
+            </div>
+        )
     }
     render() {
         return (
@@ -92,10 +119,14 @@ class EditProduct extends Component {
                         <InputGroup.Text>件</InputGroup.Text>
                         </InputGroup.Append>
                     </InputGroup>
-                
-                    <FileUploader />
+
+                    <Form.Label className={styles.label}>Main Image</Form.Label>
+                    {this.getImgDiv()}
+                    <FileUploader uploadHandler={this.uploadHandler} />
                 </Form.Group>
-                <button onClick={this.onSubmit}>Submit</button>
+
+                <Button variant="dark" onClick={this.onSubmit}>Submit</Button>
+                <Button className={styles.cancelButton} variant="dark" onClick={this.onCancel}>Cancel</Button>
             </React.Fragment>
         )
     }

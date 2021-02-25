@@ -15,6 +15,10 @@ class ProductService {
     uploadPic(params) {
         return _util.request('/api/manage/product/upload.do', params);
     }
+
+    setSaleStatus(params) {
+        return _util.request('/api/manage/product/set_sale_status.do', _util.getParams(params));
+    }
 }
 
 export default ProductService;

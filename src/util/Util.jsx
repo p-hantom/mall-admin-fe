@@ -2,7 +2,6 @@ import axios from 'axios'
 
 class Util {
     request(api, params=null, type='post') {
-        if(type=='post')    
         return axios.post(api, params)
             .then(res => {
                 const status = res.data.status;

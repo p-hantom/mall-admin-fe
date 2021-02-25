@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Table from 'react-bootstrap/Table';
 import { NavLink } from 'react-router-dom'
 import Pagination from '../../../UI/pagination/Pagination'
+import Button from 'react-bootstrap/Button'
 import styles from './ProductList.module.scss'
 
 import ProductService from '../../../service/ProductService'
@@ -37,6 +38,31 @@ class ProductList extends Component {
             this.loadProductList();
         })
     }
+    setSaleStatus = (status, productId) => {
+        _product.setSaleStatus({
+            productId: productId,
+            status: status
+        }).then(() => {
+            this.loadProductList();
+        })
+    }
+    getSaleStatus = (status, productId) => {
+        if(status===1) {
+            return (
+                <span>
+                    在售
+                    <Button className={styles.changeStatusBtn} variant='warning' onClick={() => this.setSaleStatus(0, productId)}>下架</Button>
+                </span>
+            )
+        } else {
+            return (
+                <span>
+                    已下架
+                    <Button className={styles.changeStatusBtn} variant='warning' onClick={() => this.setSaleStatus(1, productId)}>在售</Button>
+                </span>
+            )
+        }
+    }
     render() {
         const content = this.state.productList.map(item => {
             return (
@@ -47,7 +73,8 @@ class ProductList extends Component {
                         <div>{item.subtitle}</div>
                     </td>
                     <td>{item.price}</td>
-                    <td>{item.status==1 ? '在售' : '已下架'}</td>
+                    {/* <td>{item.status==1 ? '在售' : '已下架'}</td> */}
+                    <td>{this.getSaleStatus(item.status, item.id)}</td>
                     <td>
                         <NavLink to={`/product/detail/${item.id}`}>More</NavLink> {'   '}
                         <NavLink to={`/product/edit/${item.id}`}>Edit</NavLink>
