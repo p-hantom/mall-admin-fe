@@ -6,6 +6,8 @@ import FormControl from 'react-bootstrap/FormControl'
 import FileUploader from '../../../UI/fileUploader/FileUploader'
 import ProductService from '../../../service/ProductService'
 import Button from 'react-bootstrap/Button'
+import { Breadcrumb } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 
 import styles from './EditProduct.module.scss'
 
@@ -84,19 +86,27 @@ class EditProduct extends Component {
     render() {
         return (
             <React.Fragment>
+                <Breadcrumb>
+                    <Breadcrumb.Item linkProps={{ to: '/product' }} linkAs={Link}>Product List</Breadcrumb.Item>
+                    <Breadcrumb.Item active>Edit Product</Breadcrumb.Item>
+                </Breadcrumb>
                 <h1>Edit Product Info</h1>
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label className={styles.label}>Product Name</Form.Label>
                     <Form.Control value={this.state.name} onChange={e => this.changeValueHandler(e, 'name')} 
-                    className="col-md-5"/>
+                    className="col-md-10"/>
 
                     <Form.Label className={styles.label}>Product Subtitle</Form.Label>
                     <Form.Control value={this.state.subtitle} onChange={e => this.changeValueHandler(e, 'subtitle')} 
-                    className="col-md-5"/>
+                    className="col-md-10"/>
 
                     <Form.Label className={styles.label}>Category</Form.Label>
                     <CateSelector firstCateId={this.state.parentCategoryId}
                         secondCateId={this.state.categoryId}/>
+
+                    <Form.Label className={styles.label}>Main Image</Form.Label>
+                        {this.getImgDiv()}
+                    <FileUploader uploadHandler={this.uploadHandler} />
 
                     <Form.Label className={styles.label}>Price</Form.Label>
                     <InputGroup>
@@ -120,9 +130,7 @@ class EditProduct extends Component {
                         </InputGroup.Append>
                     </InputGroup>
 
-                    <Form.Label className={styles.label}>Main Image</Form.Label>
-                    {this.getImgDiv()}
-                    <FileUploader uploadHandler={this.uploadHandler} />
+                    
                 </Form.Group>
 
                 <Button variant="dark" onClick={this.onSubmit}>Submit</Button>

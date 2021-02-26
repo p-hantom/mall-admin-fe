@@ -3,6 +3,7 @@ import Category from '../../../service/CategoryService'
 import Table from 'react-bootstrap/Table';
 import Pagination from '../../../UI/pagination/Pagination'
 import Button from 'react-bootstrap/Button'
+import EditNameModal from './EditNameModal'
 
 import styles from './CategoryList.module.scss'
 
@@ -33,6 +34,30 @@ class CategoryList extends Component {
             this.loadCategoryList();
         })
     }
+    openEditNameModalHandler = (id, name) => {
+        this.setState({
+            editId: id,
+            editName: name,
+            modalShow: true
+        })
+    }
+    hideModalHandler = () => {
+        this.setState({modalShow: false});
+    }
+    confirmEdit = () => {
+        _category.setCategoryName({
+            categoryId: this.state.editId,
+            categoryName: this.state.editName
+        }).then(() => {
+            this.loadCategoryList();
+            this.hideModalHandler();
+        })
+    }
+    changeNameHander = e => {
+        this.setState({
+            editName: e.target.value
+        })
+    }
     render() {
         const content = this.state.cateList.map(item => {
             return (
@@ -40,7 +65,9 @@ class CategoryList extends Component {
                     <td>{item.id}</td>
                     <td>{item.name}</td>
                     <td>
-                        <Button className={styles.editBtn} variant="warning">Edit Name</Button>
+                        <Button onClick={() => this.openEditNameModalHandler(item.id, item.name) }
+                            className={styles.editBtn} variant="warning">
+                            Edit Name</Button>
                     </td>
                 </tr>
             )
@@ -48,6 +75,15 @@ class CategoryList extends Component {
         return (
             <React.Fragment>
                 <h1>Category Management</h1>
+                <EditNameModal 
+                    prevName={this.state.editName}
+                    id={this.state.editId}
+                    show={this.state.modalShow}
+                    onHide={this.hideModalHandler}
+                    confirmEdit={this.confirmEdit}
+                    inputValue={this.state.editName}
+                    changeValueHandler={this.changeNameHander}
+                />
                 <Table striped bordered hover className={styles.table}>
                     <thead>
                         <tr>
