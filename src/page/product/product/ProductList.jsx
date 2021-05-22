@@ -84,7 +84,11 @@ class ProductList extends Component {
         })
         return (
             <React.Fragment>
-                <h1>Product Management</h1>
+                <div className={styles.titleDiv}>
+                    <h1 className={styles.title}>Product Management</h1>
+                    <Button className={styles.addProductBtn} variant='primary'>Add</Button>
+                </div>
+                
                 <Table striped bordered hover className={styles.table}>
                     <thead>
                         <tr>

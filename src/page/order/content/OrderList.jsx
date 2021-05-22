@@ -37,11 +37,11 @@ class OrderList extends Component {
         })
     }
     render() {
-        const content = this.state.orderList.map((item,index) => (
+        const content = this.state.orderList.map((item) => (
             <tr key={item.orderNo}>
                     <td>{item.orderNo}</td>
-                    <td>{item.receiverName}</td>
-                    <td>{item.statusDesc}</td>
+                    <td>Guo</td>
+                    <td>Complete</td>
                     <td>￥{item.payment}</td>
                     <td>{item.createTime}</td>
                     <td>
